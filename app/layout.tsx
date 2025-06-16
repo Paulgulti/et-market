@@ -5,9 +5,9 @@ import Header from "@/components/layout/Header";
 import { SanityLive } from "@/sanity/live";
 import { ClerkProvider } from "@clerk/nextjs";
 
-const inter = Inter({
-  subsets: ["latin"],
-});
+// const inter = Inter({
+//   subsets: ["latin"],
+// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +23,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={`${inter.className} antialiased`}
+          className={` antialiased`}
         >
           <Header />
           {children}
