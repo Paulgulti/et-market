@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import { SanityLive } from "@/sanity/live";
 import { ClerkProvider } from "@clerk/nextjs";
+import HeaderCategorySelector from "@/components/HeaderCategorySelector";
 
 // const inter = Inter({
 //   subsets: ["latin"],
@@ -23,9 +24,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={` antialiased`}
+          className={`antialiased`}
         >
-          <Header />
+          <Header 
+            categorySelector={<HeaderCategorySelector/>}
+          />
           {children}
           <SanityLive />
         </body>

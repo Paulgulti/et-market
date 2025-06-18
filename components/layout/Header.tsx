@@ -3,13 +3,14 @@ import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@cl
 import Link from 'next/link'
 import React from 'react'
 import { useCartStore } from '@/lib/store/cart'
+import HeaderSearchBar from '../HeaderSearchBar'
 
-const Header = () => {
+const Header = ({ categorySelector }: { categorySelector: React.ReactNode }) => {
     const items = useCartStore((state) => state.items)
     const totalItems = items.reduce((total, item) => total + item.quantity, 0)
 
     return (
-        <header className='bg-gray-100'>
+        <header className='bg-gray-100 '>
             <div className='flex justify-between items-center container mx-auto py-2 px-4'>
                 <button className='md:hidden hover:cursor-pointer' >
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -23,11 +24,12 @@ const Header = () => {
                 <nav className='hidden md:flex gap-4 lg:gap-6 text-sm font-medium'>
                     <Link href="/">Shop</Link>
                     <Link href="/new-arrival">New Arrival</Link>
-                    <Link href="/sales">Sale</Link>
+                    {categorySelector}
                 </nav>
-                <Link href="#" >link</Link>
+                {/* <Link href="#" >link</Link> */}
+                <HeaderSearchBar />
                 <div className='flex items-center gap-2 sm:gap-4'>
-                    <button >
+                    {/* <button >
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
                             className='w-5 h-5 hover:cursor-pointer'
                         >
@@ -35,7 +37,7 @@ const Header = () => {
                             <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                             <g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g>
                         </svg>
-                    </button>
+                    </button> */}
                     <SignedOut>
                         <SignInButton />
                         <SignUpButton />
