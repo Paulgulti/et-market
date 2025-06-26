@@ -66,7 +66,8 @@ export async function getCart() {
         return {
           id: item.id,
           product,
-          quantity: item.quantity
+          quantity: item.quantity,
+          cartId: item.cartId,
         }
       })
     )

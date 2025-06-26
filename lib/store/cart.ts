@@ -3,10 +3,11 @@ import { persist } from 'zustand/middleware'
 import { Product } from '@/sanity.types'
 import { syncCart, getCart } from '@/lib/actions/cart'
 
-interface CartItem {
+export interface CartItem {
   id?: string // Optional because guest cart items won't have an ID
   product: Product
-  quantity: number
+  quantity: number,
+  cartId?: string
 }
 
 interface CartStore {

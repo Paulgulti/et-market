@@ -13,6 +13,64 @@
  */
 
 // Source: schema.json
+export type Order = {
+  _id: string
+  _type: 'order'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  orderNumber?: string
+  invoice?: {
+    id?: string
+    number?: string
+    hosted_invoice_url?: string
+  }
+  stripeCheckoutSessionId?: string
+  stripeCustomerId?: string
+  clerkUserId?: string
+  customerName?: string
+  email?: string
+  stripePaymentIntentId?: string
+  products?: Array<{
+    product?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'product'
+    }
+    quantity?: number
+    _key: string
+  }>
+  totalPrice?: number
+  currency?: string
+  amountDiscount?: number
+  status?: 'pending' | 'paid' | 'pending' | 'shipped' | 'delivered' | 'cancelled'
+  orderDate?: string
+}
+
+export type OrderItem = {
+  _type: 'orderItem'
+  product?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'product'
+  }
+  quantity?: number
+  price?: number
+}
+
+export type ShippingAddress = {
+  _type: 'shippingAddress'
+  name?: string
+  line1?: string
+  line2?: string
+  city?: string
+  state?: string
+  postalCode?: string
+  country?: string
+}
+
 export type PromotionCampaign = {
   _id: string
   _type: 'promotionCampaign'
@@ -199,6 +257,9 @@ export type SanityAssetSourceData = {
 }
 
 export type AllSanitySchemaTypes =
+  | Order
+  | OrderItem
+  | ShippingAddress
   | PromotionCampaign
   | PromotionCode
   | Product
