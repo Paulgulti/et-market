@@ -1,6 +1,6 @@
 import { defineLive } from "next-sanity";
 import { client } from "./client";
-import { Product, ProductCategory } from "@/sanity.types";
+import { Order, Product, ProductCategory } from "@/sanity.types";
 
 const token = process.env.SANITY_API_READ_TOKEN;
 if (!token) {
@@ -55,3 +55,22 @@ export async function searchProduct(searchQuery: string) {
     return products.data as Product[];
 }
 
+export const getMyOrders = async (userId: string) => {
+    if (!userId) {
+        throw new Error('UserId is required');
+    }
+    const ordersQuery = `*[_type == 'order' && 
+        clerkUserId == $userId] | order(orderDate desc){
+            ...,products[]{
+                ...,product->
+            }
+        }`
+
+    try {
+        const orders = await sanityFetch({ query: ordersQuery, params: { userId } });
+        return orders.data as Order[] || [];
+    } catch (error) {
+        console.error('Error fetching orders', error);
+        return [];
+    }
+}

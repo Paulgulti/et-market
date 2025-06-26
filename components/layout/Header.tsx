@@ -39,7 +39,7 @@ const Header = ({ categorySelector }: { categorySelector: React.ReactNode }) => 
                         </svg>
                     </button> */}
                     <SignedOut>
-                        <SignInButton />
+                        <SignInButton/>
                         <SignUpButton />
                     </SignedOut>
                     <SignedIn>
