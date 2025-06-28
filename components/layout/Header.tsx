@@ -60,7 +60,6 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                     </div>
                     <div className=''>
                         <HeaderSearchBar />
-                        {/* search bar */}
                     </div>
                     <div className='flex items-center gap-2 md:gap-4'>
                         <div className='flex items-center gap-3 md:gap-4'>
