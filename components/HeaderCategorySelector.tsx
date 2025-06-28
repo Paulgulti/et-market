@@ -7,18 +7,18 @@ const HeaderCategorySelector = async () => {
     return (
 <div className='relative inline-block'>
             <div className='peer group flex items-center gap-2 font-medium text-gray-700 hover:text-gray-900 hover:cursor-pointer'>
-                <span>Category</span> 
+                <span className='text-white hover:text-gray-200'>Category</span> 
                 <svg
                     width="10"
                     height="6"
                     viewBox="0 0 10 6"
-                    fill="none"
+                    fill="#ffffff"
                     xmlns="http://www.w3.org/2000/svg"
                     className='group-hover:rotate-180'
                 >
                     <path
                         d="M0.97168 0.757324L5.00001 4.78566L9.02834 0.757324"
-                        stroke="#000"
+                        stroke=""
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"

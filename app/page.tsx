@@ -5,7 +5,7 @@ export default async function Home() {
 
   const products = await getAllProducts()
   return (
-    <div className="container mx-auto my-8">
+    <div className="container mx-auto px-2 my-8">
       <ProductGrid products={products}/>
     </div>
   );

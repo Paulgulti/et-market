@@ -17,7 +17,7 @@ const HeaderSearchBar = () => {
                 <input
                     name='query'
                     type='text'
-                    className='border border-gray-200 rounded-md pl-8 pr-2 py-1 focus:ring-black focus:ring-1 focus:border-transparent transition-colors'
+                    className='border max-w-[200px] border-gray-200 rounded-md pl-8 pr-2 py-1 focus:ring-black focus:ring-1 focus:border-transparent transition-colors'
                 />
             </div>
     </Form>

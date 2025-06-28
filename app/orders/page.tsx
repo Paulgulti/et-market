@@ -1,7 +1,7 @@
 import OrderComponent from '@/components/Order/OrderComponent'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import { Table, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { getMyOrders } from '@/sanity/live'
 import { auth } from '@clerk/nextjs/server'
@@ -21,26 +21,27 @@ const page = async () => {
   return (
     <div className=''>
       {orders?.length > 0 ? (
-        <Card>
+        <Card className=''>
           <CardHeader>
             <CardTitle>Your Orders</CardTitle>
           </CardHeader>
           <CardContent>
-            <ScrollArea>
+            <ScrollArea className='h-72 w-[350px] md:w-[740px] mx-auto whitespace-nowrap'>
               <Table className=''>
                 <TableHeader>
                   <TableRow>
                     <TableHead>Order Number</TableHead>
                     <TableHead className='hidden md:table-cell'>Date</TableHead>
-                    <TableHead>Customer</TableHead>
+                    <TableHead >Customer</TableHead>
                     <TableHead className='hidden md:table-cell'>Email</TableHead>
                     <TableHead>Total</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead className='hidden md:table-cell'>Invoice Number</TableHead>
+                    <TableHead >Invoice Number</TableHead>
                   </TableRow>
                 </TableHeader>
                 <OrderComponent orders={orders}/>
               </Table>
+              <ScrollBar orientation='horizontal'/>
             </ScrollArea>
           </CardContent>
         </Card>

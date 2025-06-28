@@ -23,7 +23,7 @@ const OrderComponent = ({ orders }: { orders: Order[] }) => {
                                 >
                                     <TableCell className='font-medium'>{order.orderNumber?.slice(-10) ?? 'N/A'}</TableCell>
                                     <TableCell className='hidden md:table-cell'>{new Date(order.orderDate!).toLocaleDateString()}</TableCell>
-                                    <TableCell>{order.customerName ?? 'User'}</TableCell>
+                                    <TableCell >{order.customerName ?? 'User'}</TableCell>
                                     <TableCell className='hidden md:table-cell'>{order.email}</TableCell>
                                     <TableCell className='text-black font-medium'>{priceFormatter(order.totalPrice!)}</TableCell>
                                     <TableCell className={clsx(
@@ -35,7 +35,7 @@ const OrderComponent = ({ orders }: { orders: Order[] }) => {
                                         }
                                     )}>{capitalizeFirstLetter(order.status!)}
                                     </TableCell>
-                                    <TableCell className='hidden md:table-cell'>{order.invoice?.number}</TableCell>
+                                    <TableCell >{order.invoice?.number}</TableCell>
                                 </TableRow>
                             </TooltipTrigger>
                             <TooltipContent>

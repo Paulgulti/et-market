@@ -52,26 +52,26 @@ const CartPage = () => {
     }
 
     // console.log(items);
-    
+
 
     return (
         <div>
             {isSignedIn ? (
                 <>
                     {user?.fullName ? (
-                        <h2>Welcome {user.fullName}</h2>
+                        <h2 className="my-2 px-3 text-sm md:text-lg">Welcome <span className="text-gray-700">{user.fullName.split(" ")[0]}</span></h2>
                     ) : (
                         <h2>Welcome User</h2>
                     )}
                     {items.length === 0 ? (
                         <div>Your cart is empty</div>
                     ) : (
-                        <div className="container max-w-[600px] mx-auto py-8 px-3">
-                            <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
-                            <div className="">
+                        <div className=" max-w-2xl mx-auto my-2 px-3">
+                            <h1 className="text-md md:text-xl font-bold mb-4">Your Cart</h1>
+                            <div className="flex flex-col md:flex-row md:gap-4">
                                 <div className="space-y-4">
                                     {items.map((item) => (
-                                        <div key={item.id || item.product._id} className="flex items-center justify-between gap-4 border p-4 rounded-lg">
+                                        <div key={item.id || item.product._id} className="border p-4 rounded-lg">
                                             <div className="flex items-center gap-4">
                                                 {item.product.image && (
                                                     <div className="relative w-24 h-24">
@@ -83,58 +83,64 @@ const CartPage = () => {
                                                         />
                                                     </div>
                                                 )}
-                                                <div className="flex-1">
+                                                <div className="flex flex-col gap-2">
                                                     <h3 className="font-semibold">{item.product.title}</h3>
-                                                    <p className="text-gray-600">${item.product.price}</p>
+                                                    <div className="flex justify-between ">
+                                                        <p className="text-gray-600">${item.product.price}</p>
+                                                        <div className="flex flex-col items-end gap-2">
+                                                            <div className="flex items-center gap-1">
+                                                                <button
+                                                                    onClick={() => updateQuantity(item.product._id, item.quantity - 1, isSignedIn)}
+                                                                    className="px-2 py-1 border rounded cursor-pointer"
+                                                                >
+                                                                    -
+                                                                </button>
+                                                                <span>{item.quantity}</span>
+                                                                <button
+                                                                    onClick={() => updateQuantity(item.product._id, item.quantity + 1, isSignedIn)}
+                                                                    className="px-2 py-1 border rounded cursor-pointer"
+                                                                >
+                                                                    +
+                                                                </button>
+                                                            </div>
+                                                            <button
+                                                                onClick={() => removeItem(item.product._id, isSignedIn)}
+                                                                className="text-red-500 hover:text-red-700 cursor-pointer"
+                                                            >
+                                                                Remove
+                                                            </button>
+                                                        </div>
+                                                        {/* <div className="">
+
+
+                                                        </div> */}
+                                                    </div>
                                                 </div>
 
-                                            </div>
-                                            <div>
-                                                <div className="flex items-center gap-2">
-                                                    <button
-                                                        onClick={() => updateQuantity(item.product._id, item.quantity - 1, isSignedIn)}
-                                                        className="px-2 py-1 border rounded cursor-pointer"
-                                                    >
-                                                        -
-                                                    </button>
-                                                    <span>{item.quantity}</span>
-                                                    <button
-                                                        onClick={() => updateQuantity(item.product._id, item.quantity + 1, isSignedIn)}
-                                                        className="px-2 py-1 border rounded cursor-pointer"
-                                                    >
-                                                        +
-                                                    </button>
-                                                </div>
-                                                <button
-                                                    onClick={() => removeItem(item.product._id, isSignedIn)}
-                                                    className="text-red-500 hover:text-red-700 cursor-pointer"
-                                                >
-                                                    Remove
-                                                </button>
                                             </div>
                                         </div>
                                     ))}
                                 </div>
-                                <div className="mt-6 text-right">
-                                    <p className="text-xl font-semibold">
+                                <div className="mt-6 flex flex-col items-center gap-2">
+                                    <p className="text-sm md:text-xl font-semibold">
                                         Total: ${items.reduce((total, item) => total + (item.product.price || 0) * item.quantity, 0).toFixed(2)}
                                     </p>
+                                    <Button
+                                        onClick={handleProceedToCheckout}
+                                        className=""
+                                        disabled={loadingProceed}
+                                    >
+                                        {loadingProceed ?
+                                            (<div className="flex items-center gap-2">
+                                                Proceeding to checkout...
+                                                {/* a loading animation here */}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-loader-icon lucide-loader"><path d="M12 2v4" /><path d="m16.2 7.8 2.9-2.9" /><path d="M18 12h4" /><path d="m16.2 16.2 2.9 2.9" /><path d="M12 18v4" /><path d="m4.9 19.1 2.9-2.9" /><path d="M2 12h4" /><path d="m4.9 4.9 2.9 2.9" /></svg>
+
+                                            </div>) :
+                                            "Proceed to checkout"}
+                                    </Button>
                                 </div>
                             </div>
-                            <Button
-                                onClick={handleProceedToCheckout}
-                                className=""
-                                disabled={loadingProceed}
-                            >
-                                {loadingProceed ?
-                                    (<div className="flex items-center gap-2">
-                                        Proceeding to checkout...
-                                        {/* a loading animation here */}
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-loader-icon lucide-loader"><path d="M12 2v4" /><path d="m16.2 7.8 2.9-2.9" /><path d="M18 12h4" /><path d="m16.2 16.2 2.9 2.9" /><path d="M12 18v4" /><path d="m4.9 19.1 2.9-2.9" /><path d="M2 12h4" /><path d="m4.9 4.9 2.9 2.9" /></svg>
-
-                                    </div>) :
-                                    "Proceed to checkout"}
-                            </Button>
                         </div>
                     )}
                 </>

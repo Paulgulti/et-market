@@ -5,6 +5,9 @@ import Header from "@/components/layout/Header";
 import { SanityLive } from "@/sanity/live";
 import { ClerkProvider } from "@clerk/nextjs";
 import HeaderCategorySelector from "@/components/HeaderCategorySelector";
+import { Toaster } from "@/components/ui/sonner";
+import getTotalOrderForHeader from "@/components/Order/getTotalOrderForHeader";
+import GetTotalOrderForHeader from "@/components/Order/getTotalOrderForHeader";
 
 // const inter = Inter({
 //   subsets: ["latin"],
@@ -28,9 +31,11 @@ export default function RootLayout({
         >
           <Header 
             categorySelector={<HeaderCategorySelector/>}
+            totalOrder={<GetTotalOrderForHeader/>}
           />
           {children}
           <SanityLive />
+          <Toaster/>
         </body>
       </html>
     </ClerkProvider>
