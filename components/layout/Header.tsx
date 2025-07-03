@@ -6,22 +6,26 @@ import { useCartStore } from '@/lib/store/cart'
 import HeaderSearchBar from '../HeaderSearchBar'
 import clsx from 'clsx'
 import { ListOrderedIcon } from 'lucide-react'
+import { Button } from '../ui/button'
 
-const Header = ({ categorySelector, totalOrder }: { categorySelector: React.ReactNode, totalOrder: React.ReactNode}) => {
-    const [toogleMenu, setToggleMenu] = useState<boolean>(false)
-    const items = useCartStore((state) => state.items)
+const Header = ({ categorySelector, totalOrder }: { categorySelector: React.ReactNode, totalOrder: React.ReactNode }) => {
+    // const [toogleMenu, setToggleMenu] = useState<boolean>(false)
+    const [showLogin, setShowLogin] = useState(false)
+    const { items, toggleMenu, openedMenu } = useCartStore()
     const totalItems = items.reduce((total, item) => total + item.quantity, 0)
 
-    function onToggleMenu() {
-        setToggleMenu(!toogleMenu)
-    }
+    // function onToggleMenu() {
+    //     setToggleMenu(!toogleMenu)
+    // }
+    // console.log(openedMenu);
+
     return (
-        <header className='bg-violet-500 h-[40px] text-white font-semibold'>
+        <header className='bg-violet-500 h-[60px] flex items-center text-white font-semibold'>
             <div className='container mx-auto '>
                 <nav className='flex justify-between items-center mx-4'>
-                    {toogleMenu ? (
+                    {openedMenu ? (
                         <svg
-                            onClick={onToggleMenu}
+                            onClick={toggleMenu}
                             className='w-5 h-5 md:hidden'
                             viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" fill="#000000">
                             <g id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>Close</title> <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd"> <g id="Close"> <rect id="Rectangle" fillRule="nonzero" x="0" y="0" width="24" height="24"> </rect> <line x1="16.9999" y1="7" x2="7.00001" y2="16.9999" id="Path" stroke="#0C0310" strokeWidth="2" strokeLinecap="round"> </line> <line x1="7.00006" y1="7" x2="17" y2="16.9999" id="Path" stroke="#0C0310" strokeWidth="2" strokeLinecap="round"> </line> </g> </g> </g>
@@ -29,7 +33,7 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                         // <button className='w-5 h-5 md:hidden' onClick={onToggleMenu}>x</button>
                     ) : (
                         <svg
-                            onClick={onToggleMenu}
+                            onClick={toggleMenu}
                             viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg"
                             className='w-5 h-5 md:hidden'
                         >
@@ -43,16 +47,20 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                         clsx(
                             'bg-violet-500 opacity-98 md:opacity-100 absolute md:static left-0 top-0 md:w-auto w-full md:min-h-fit  z-99 flex md:items-center px-5 transform-all duration-300',
                             {
-                                'top-[-100%] ': toogleMenu === false,
-                                'top-[40px] min-h-screen': toogleMenu === true,
+                                'top-[-100%] ': openedMenu === false,
+                                'top-[60px] min-h-screen': openedMenu === true,
                             }
                         )
                     }>
                         <ul className='flex flex-col md:flex-row gap-6 md:gap-[4vw] md:items-center py-10 md:py-0'>
-                            <li className='hover:text-gray-200'>
+                            <li
+                                onClick={toggleMenu}
+                                className='hover:text-gray-200'>
                                 <Link href={"/shop"}>Shop</Link>
                             </li>
-                            <li className='hover:text-gray-200'>
+                            <li
+                                onClick={toggleMenu}
+                                className='hover:text-gray-200'>
                                 <Link href={"/new"}>New</Link>
                             </li>
                             <li>{categorySelector}</li>
@@ -80,12 +88,44 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                             <div>{totalOrder}</div>
 
                         </div>
-                        <SignedOut>
-                            <div className='flex flex-col md:flex-row md:gap-3 text-sm'>
-                                <SignInButton />
-                                <SignUpButton />
-                            </div>
-                        </SignedOut>
+                        <div className='relative'>
+                            <SignedOut>
+                                <svg
+                                    className='w-4 md:w-5 h-4 md:h-5 hover:cursor-pointer md:hidden'
+                                    onClick={() => setShowLogin(!showLogin)}
+                                    fill="#000000" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" id="memory-login">
+                                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier"><path d="M5 1H17V2H18V20H17V21H5V20H4V14H6V19H16V3H6V8H4V2H5V1M8 6H10V7H11V8H12V9H13V10H14V12H13V13H12V14H11V15H10V16H8V14H9V13H10V12H2V10H10V9H9V8H8V6Z"></path></g>
+                                </svg>
+                                {/* <p onClick={() => setShowLogin(!showLogin)} className='md:hidden'>us</p> */}
+                                {showLogin && (
+                                    <div
+                                        className="fixed inset-0 z-50"
+                                        onClick={() => setShowLogin(false)}
+                                        style={{ pointerEvents: 'auto' }}
+                                    />
+                                )}
+                                <div
+                                    className={clsx(
+                                        'flex gap-1.5 flex-col md:flex-row md:gap-3 text-sm',
+                                        { 'hidden md:flex': showLogin === false },
+                                        { 'absolute flex right-0 top-5 md:static': showLogin === true }
+                                    )}
+                                    style={{ zIndex: 100 }}
+                                    onClick={e => e.stopPropagation()}
+                                >
+                                    <div className='bg-white shadow-xl flex flex-col md:flex-row gap-1.5 p-5 md:p-0 rounded-lg md:bg-transparent'>
+                                        <Button asChild className='text-xs cursor-pointer'>
+                                            <SignInButton />
+                                        </Button>
+                                        <Button asChild variant={'outline'} className='text-black text-xs cursor-pointer'>
+                                            <SignUpButton />
+                                        </Button>
+                                    </div>
+                                </div>
+                            </SignedOut>
+                        </div>
                         <SignedIn>
                             <UserButton />
                         </SignedIn>

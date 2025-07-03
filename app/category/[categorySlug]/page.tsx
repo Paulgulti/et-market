@@ -11,7 +11,7 @@ const page = async ({params} : { params: Promise<{ categorySlug: string }> }) =>
     ])
   return (
         <div className='container mx-auto'>
-            <div className='container mx-auto bg-primary py-4'>
+            <div className='container mx-auto bg-orange-500 opacity-50 py-4'>
                 <p className='text-center text-2xl md:text-3xl font-bold'>
                     {category.title} - UP TO 90% OFF! <span className='animate-pulse'>🔥</span>
                 </p>

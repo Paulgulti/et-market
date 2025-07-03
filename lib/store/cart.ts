@@ -20,6 +20,8 @@ interface CartStore {
   loadCart: () => Promise<void>
   syncWithDatabase: () => Promise<void>
   mergeLocalCartWithDatabase: () => Promise<void>
+  openedMenu: boolean
+  toggleMenu: () => void
 }
 
 export const useCartStore = create<CartStore>()(
@@ -159,6 +161,11 @@ export const useCartStore = create<CartStore>()(
           console.error('Error syncing cart:', error)
         }
       },
+      openedMenu: false,
+      toggleMenu: () => {
+        const {openedMenu} = get();
+        set({ openedMenu: !openedMenu })
+      }
     }),
     {
       name: 'cart-storage',

@@ -64,7 +64,23 @@ const CartPage = () => {
                         <h2>Welcome User</h2>
                     )}
                     {items.length === 0 ? (
-                        <div>Your cart is empty</div>
+                        <div className="flex flex-col items-center justify-center py-16 animate-fade-in">
+                            <svg
+                                className="w-16 h-16 text-gray-300 mb-4 animate-bounce"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m13-9l2 9m-5-9V6a2 2 0 10-4 0v7"
+                                />
+                            </svg>
+                            <div className="text-lg font-semibold text-gray-600 mb-2">Your cart is empty</div>
+                            <div className="text-gray-400 text-sm animate-pulse">Looks like you haven&apos;t added anything yet.</div>
+                        </div>
                     ) : (
                         <div className=" max-w-2xl mx-auto my-2 px-3">
                             <h1 className="text-md md:text-xl font-bold mb-4">Your Cart</h1>

@@ -1,18 +1,16 @@
 'use client'
 
+import { useCartStore } from "@/lib/store/cart"
 import { ProductCategory } from "@/sanity.types"
 import clsx from "clsx"
 import Link from "next/link"
 import { useState } from "react"
 
-const Categories = ({categories}: {categories: ProductCategory[]}) => {
+const Categories = ({ categories }: { categories: ProductCategory[] }) => {
     const [showCategory, setShowCategory] = useState(false);
-    
-    // function handleShowCategory() {
+    const { toggleMenu } = useCartStore()
 
-    // }
-
-  return (
+    return (
         <div onClick={() => setShowCategory(!showCategory)} className='relative inline-block'>
             <div className='peer group flex items-center gap-2 font-medium text-gray-700 hover:text-gray-900 hover:cursor-pointer'>
                 <span className='text-white hover:text-gray-200'>Category</span>
@@ -42,6 +40,7 @@ const Categories = ({categories}: {categories: ProductCategory[]}) => {
                     <div className='py-2'>
                         {categories.map(category =>
                             <Link
+                                onClick={toggleMenu}
                                 key={category._id}
                                 href={`/category/${category.slug?.current}`}
                                 className='block text-sm px-4 py-3 hover:bg-gray-50 text-gray-700 hover:text-gray-900 transition-colors duration-100'
@@ -53,7 +52,7 @@ const Categories = ({categories}: {categories: ProductCategory[]}) => {
                 </div>
             </div>
         </div>
-  )
+    )
 }
 
 export default Categories
