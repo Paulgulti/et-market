@@ -7,7 +7,7 @@ import HeaderSearchBar from '../HeaderSearchBar'
 import clsx from 'clsx'
 import { ListOrderedIcon } from 'lucide-react'
 
-const Header = ({ categorySelector, totalOrder }: { categorySelector: React.ReactNode, totalOrder: React.ReactNode }) => {
+const Header = ({ categorySelector, totalOrder }: { categorySelector: React.ReactNode, totalOrder: React.ReactNode}) => {
     const [toogleMenu, setToggleMenu] = useState<boolean>(false)
     const items = useCartStore((state) => state.items)
     const totalItems = items.reduce((total, item) => total + item.quantity, 0)
@@ -41,7 +41,7 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                     )}
                     <div className={
                         clsx(
-                            'bg-violet-500 opacity-98 md:opacity-100 absolute md:static left-0 md:w-auto w-full md:min-h-fit min-h-[30vh] z-99 flex md:items-center px-5 transform-all duration-300',
+                            'bg-violet-500 opacity-98 md:opacity-100 absolute md:static left-0 md:w-auto w-full md:min-h-fit min-h-screen z-99 flex md:items-center px-5 transform-all duration-300',
                             {
                                 'top-[-100%] ': toogleMenu === false,
                                 'top-[40px] ': toogleMenu === true,
@@ -50,10 +50,10 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                     }>
                         <ul className='flex flex-col md:flex-row gap-6 md:gap-[4vw] md:items-center py-10 md:py-0'>
                             <li className='hover:text-gray-200'>
-                                <Link href={"/"}>Shop</Link>
+                                <Link href={"/shop"}>Shop</Link>
                             </li>
                             <li className='hover:text-gray-200'>
-                                <Link href={"/"}>New</Link>
+                                <Link href={"/new"}>New</Link>
                             </li>
                             <li>{categorySelector}</li>
                         </ul>
