@@ -41,10 +41,10 @@ const Header = ({ categorySelector, totalOrder }: { categorySelector: React.Reac
                     )}
                     <div className={
                         clsx(
-                            'bg-violet-500 opacity-98 md:opacity-100 absolute md:static left-0 md:w-auto w-full md:min-h-fit min-h-screen z-99 flex md:items-center px-5 transform-all duration-300',
+                            'bg-violet-500 opacity-98 md:opacity-100 absolute md:static left-0 top-0 md:w-auto w-full md:min-h-fit  z-99 flex md:items-center px-5 transform-all duration-300',
                             {
                                 'top-[-100%] ': toogleMenu === false,
-                                'top-[40px] ': toogleMenu === true,
+                                'top-[40px] min-h-screen': toogleMenu === true,
                             }
                         )
                     }>
